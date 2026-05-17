@@ -1,0 +1,21 @@
+module instr_mem(
+    input [31:0] addr,
+    output [31:0] instr
+    );
+	 reg [31:0] rom [63:0];
+	 
+
+    // Hardcode some test instructions (Machine Code)
+    initial begin
+	 rom[0]=32'h00500093;
+	
+	  rom[1] = 32'h00A00113; // addi x2, x0, 10
+    rom[2] = 32'h002081B3; // add  x3, x1, x2  → 15
+    rom[3] = 32'h00310233; // add  x4, x2, x3  → 25
+    rom[4] = 32'h004182B3; // add  x5, x3, x4  → 40
+    rom[5] = 32'h00520333; // add  x6, x4, x5  → 65
+    rom[6] = 32'h006283B3; // add  x7, x5, x6  → 105
+	 end
+	  
+assign instr=rom[addr[7:2]];
+endmodule
