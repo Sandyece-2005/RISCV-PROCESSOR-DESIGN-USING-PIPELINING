@@ -1,0 +1,24 @@
+module tb_riscv_pipeline;
+reg clk;
+reg reset;
+wire [31:0] final_result;
+
+ riscv_pipelined uut(
+.clk(clk),
+.reset(reset),
+.final_result(final_result)
+);
+always #5 clk=~clk;
+initial begin
+$display("----- 5-STAGE PIPELINE SIMULATION -----");
+    $monitor("Time = %0t | Final Result = %d", $time, final_result);
+
+    clk = 0;
+    reset = 1;
+
+    #10 reset = 0;   // release reset
+
+    #200 $finish;
+ end
+ 
+endmodule
